@@ -12,7 +12,8 @@ public struct Ticket {
     
     public var feedLinesOnTail: UInt8 = 3
     public var feedLinesOnHead: UInt8 = 0
-    
+    public var cutTicket: Bool = true
+
     private var blocks = [Block]()
     
     public init(_ blocks: Block...) {
@@ -35,6 +36,10 @@ public struct Ticket {
             ds.append(Data(esc_pos: .printAndFeed(lines: feedLinesOnTail)))
         }
         
+        if cutTicket {
+            ds.append(Data(esc_pos: .cutPartially()))
+        }
+
         return ds
     }
 }

@@ -130,4 +130,8 @@ extension ESC_POSCommand {
     static func QRPrint() -> ESC_POSCommand {
         return ESC_POSCommand([29, 40, 107, 3, 0, 49, 81, 48])
     }
+    
+    static func cutPartially() -> ESC_POSCommand{
+        return ESC_POSCommand([29, 86, 66, 0])
+    }
 }
