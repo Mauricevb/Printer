@@ -75,4 +75,8 @@ public extension Block {
         return Block(TicketImage(im, attributes: attributes))
     }
     
+    // image from data
+    static func image(_ data: Data, attributes: TicketImage.PredefinedAttribute...) -> Block {
+        return Block(DataBlock(data: data, attributes: attributes))
+    }
 }

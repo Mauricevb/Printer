@@ -32,6 +32,29 @@ public struct TicketImage: BlockDataProvider {
     }
 }
 
+public struct DataBlock: BlockDataProvider {
+    
+    private let data: Data
+    private let attributes: [Attribute]?
+
+    init(data: Data, attributes: [Attribute]? = nil) {
+        self.data = data
+        self.attributes = attributes
+    }
+    
+    public func data(using encoding: String.Encoding) -> Data {
+        var result = Data()
+        
+         if let attrs = attributes {
+             result.append(Data(attrs.flatMap { $0.attribute }))
+         }
+        
+        result.append(data)
+        
+        return result
+    }
+}
+
 public extension TicketImage {
     
     enum PredefinedAttribute: Attribute {
