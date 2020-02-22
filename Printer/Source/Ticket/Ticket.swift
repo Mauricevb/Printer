@@ -13,6 +13,8 @@ public struct Ticket {
     public var feedLinesOnTail: UInt8 = 3
     public var feedLinesOnHead: UInt8 = 0
     public var cutTicket: Bool = true
+    
+    public static let codePage1252 = 49
 
     private var blocks = [Block]()
     
@@ -25,8 +27,7 @@ public struct Ticket {
     }
     
     public func data(using encoding: String.Encoding) -> [Data] {
-        
-        var ds = blocks.map { Data.reset + $0.data(using: encoding) }
+        var ds = blocks.map { Data.reset + Data.codePage(page: 49) + $0.data(using: encoding) }
         
         if feedLinesOnHead > 0 {
             ds.insert(Data(esc_pos: .printAndFeed(lines: feedLinesOnHead)), at: 0)

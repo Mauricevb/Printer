@@ -20,6 +20,10 @@ extension Data {
         return Data(esc_pos: .initialize)
     }
     
+    static func codePage(page: UInt8) -> Data {
+        return Data(esc_pos: .codePage(page: page))
+    }
+    
     static func print(_ feed: UInt8) -> Data {
         return Data(esc_pos: .feed(points: feed))
     }
@@ -95,6 +99,10 @@ extension ESC_POSCommand {
     // Turns underline mode on or off
     static func underline(mode: UInt8) -> ESC_POSCommand {
         return ESC_POSCommand([27, 45, mode])
+    }
+    
+    static func codePage(page: UInt8) -> ESC_POSCommand {
+        return ESC_POSCommand(rawValue: [27, 116, page])
     }
     
     enum ImageSize: UInt8 {
