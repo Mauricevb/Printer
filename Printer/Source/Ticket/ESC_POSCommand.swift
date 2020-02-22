@@ -105,6 +105,11 @@ extension ESC_POSCommand {
         return ESC_POSCommand(rawValue: [27, 116, page])
     }
     
+    // Beep once
+    public static var beep: ESC_POSCommand {
+        return ESC_POSCommand(rawValue: [27,66,1,1])
+    }
+    
     enum ImageSize: UInt8 {
         case normal = 48
         case doubleWidth = 49
