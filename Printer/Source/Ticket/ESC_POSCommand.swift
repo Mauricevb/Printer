@@ -101,12 +101,13 @@ extension ESC_POSCommand {
         return ESC_POSCommand([27, 45, mode])
     }
     
+    // Set code page
     static func codePage(page: UInt8) -> ESC_POSCommand {
         return ESC_POSCommand(rawValue: [27, 116, page])
     }
     
     // Beep once
-    public static var beep: ESC_POSCommand {
+    static var beep: ESC_POSCommand {
         return ESC_POSCommand(rawValue: [27,66,1,1])
     }
     

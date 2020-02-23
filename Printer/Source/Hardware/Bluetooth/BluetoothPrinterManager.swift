@@ -269,18 +269,23 @@ public class BluetoothPrinterManager {
     }
 
     public func print(_ content: ESCPOSCommandsCreator, encoding: String.Encoding = .windowsCP1252, completeBlock: ((PError?) -> ())? = nil) {
-
+        write(data: content.data(using: encoding), completeBlock: completeBlock)
+    }
+    
+    public func beep(completeBlock: ((PError?) -> ())? = nil) {
+        write(data: [Data(esc_pos: .beep)], completeBlock: completeBlock)
+    }
+    
+    private func write(data: [Data], completeBlock: ((PError?) -> ())? = nil) {
         guard let p = peripheralDelegate.writablePeripheral, let c = peripheralDelegate.writablecharacteristic else {
-
             completeBlock?(.deviceNotReady)
             return
         }
-
-        for data in content.data(using: encoding) {
-
-            p.writeValue(data, for: c, type: .withoutResponse)
+        
+        for d in data {
+            p.writeValue(d, for: c, type: .withoutResponse)
         }
-
+        
         completeBlock?(nil)
     }
 
